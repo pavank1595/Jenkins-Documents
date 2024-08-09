@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    environment {
+        PATH = "$PATH:/opt/apache-maven-3.9.8/bin"
+    }
+
+    stages {
+        
+        stage('Get-Code') {
+            steps {
+                git branch: 'master',
+                    url: 'https://github.com/pavank1595/Java-DevOps-Projects.git'
+            }
+        }
+
+        stage('Build-Code') {
+            steps {
+                sh "mvn clean package"
+            }
+        }
+
+        stage('SonarQube-Analysis') {
+            steps {
+                withSonarQubeEnv('Sonar-Server-10.6') {
+                    sh "mvn sonar:sonar"
+                }
+            }
+        }
+
+        stage('Deploy-to-Tomcat') {
+            steps {
+                script {
+                    def warFile = findFiles(glob: '**/*.war')[0]
+                    deploy adapters: [tomcat9(credentialsId: 'f7132625-795a-4c03-afb5-126fd356a13d', url: 'http://20.67.235.46:8080/')], contextPath: '', war: warFile.path
+                }
+            }
+        }
+    }
+}

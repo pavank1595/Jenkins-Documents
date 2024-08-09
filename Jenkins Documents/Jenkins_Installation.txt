@@ -1,0 +1,62 @@
+#####################################################################################################
+CentOS Installation:
+
+sudo yum install java-17-openjdk -y
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+sudo yum install jenkins -y
+
+sudo systemctl start jenkins
+
+sudo systemctl enable jenkins
+
+sudo systemctl status jenkins
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+d6c29e44b8124d04936149d68e5c0540
+
+
+http://20.67.235.3:8080/
+
+sudo update-alternatives --config java
+
+JAVA_HOME = /usr/lib/jvm/java-17-openjdk-17.0.1.0.12-2.el8_5.x86_64/bin/java
+
+#######################################################################################################
+Ubuntu Installation:
+
+sudo apt update && sudo apt upgrade -y
+
+
+sudo wget -O /etc/apt/sources.list.d/jenkins.list http://pkg.jenkins.io/debian-stable/jenkins.list
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 555116784D4CF3267F23D28F82DD0F8D
+
+
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo gpg --dearmor - | sudo tee /usr/share/keyrings/jenkins.gpg > /dev/null
+
+
+echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
+
+
+sudo apt update
+
+
+sudo apt install jenkins
+
+
+sudo systemctl start jenkins
+
+
+sudo systemctl status jenkins
+
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+
+
+
+
+

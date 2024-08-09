@@ -1,0 +1,12 @@
+Plugin: Pipeline Utility Steps
+
+above plugin is required to add this stage to deploy war file to tomcat using pipeline script
+
+stage('Deploy-to-Tomcat') {
+            steps {
+                script {
+                    def warFile = findFiles(glob: '**/*.war')[0]
+                    deploy adapters: [tomcat9(credentialsId: 'f7132625-795a-4c03-afb5-126fd356a13d', url: 'http://20.67.235.46:8080/')], contextPath: '', war: warFile.path
+                }
+            }
+        }
